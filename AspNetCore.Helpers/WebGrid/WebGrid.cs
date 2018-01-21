@@ -66,6 +66,7 @@ namespace System.Web.Helpers
         [ExcludeFromCodeCoverage]
 #endif
         public WebGrid(
+            IHttpContextAccessor contextAccessor,
             IEnumerable<dynamic> source = null,
             IEnumerable<string> columnNames = null,
             string defaultSort = null,
@@ -79,7 +80,7 @@ namespace System.Web.Helpers
             string selectionFieldName = null,
             string sortFieldName = null,
             string sortDirectionFieldName = null)
-            : this(new HttpContextWrapper(Web.HttpContext.Current), defaultSort: defaultSort, rowsPerPage: rowsPerPage, canPage: canPage,
+            : this(contextAccessor.HttpContext, defaultSort: defaultSort, rowsPerPage: rowsPerPage, canPage: canPage,
                    canSort: canSort, ajaxUpdateContainerId: ajaxUpdateContainerId, ajaxUpdateCallback: ajaxUpdateCallback, fieldNamePrefix: fieldNamePrefix, pageFieldName: pageFieldName,
                    selectionFieldName: selectionFieldName, sortFieldName: sortFieldName, sortDirectionFieldName: sortDirectionFieldName)
         {
@@ -431,9 +432,9 @@ namespace System.Web.Helpers
             get { return _context; }
         }
 
-        private NameValueCollection QueryString
+        private IQueryCollection QueryString
         {
-            get { return HttpContext.Request.QueryString; }
+            get { return HttpContext.Request.Query; }
         }
 
         internal static Type GetElementType(IEnumerable<dynamic> source)
@@ -818,7 +819,12 @@ namespace System.Web.Helpers
         // review: make sure this is ordered
         internal string GetPath(NameValueCollection queryString, params string[] exclusions)
         {
-            NameValueCollection temp = new NameValueCollection(QueryString);
+            NameValueCollection temp = new NameValueCollection();
+            foreach (var pair in QueryString)
+            {
+                temp.Add(pair.Key, pair.Value.First());
+            }
+
             // update current query string in case values were set programmatically
             if (temp.AllKeys.Contains(PageFieldName))
             {

@@ -2,6 +2,7 @@
 
 using System.Globalization;
 using System.IO;
+using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Html;
 
 namespace System.Web.WebPages
@@ -34,6 +35,11 @@ namespace System.Web.WebPages
         }
 
         public void WriteTo(TextWriter writer)
+        {
+            _action(writer);
+        }
+
+        public void WriteTo(TextWriter writer, HtmlEncoder encoder)
         {
             _action(writer);
         }

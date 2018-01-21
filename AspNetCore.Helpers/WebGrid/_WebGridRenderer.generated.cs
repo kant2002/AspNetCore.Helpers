@@ -23,7 +23,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace System.Web.Helpers
 {
     [GeneratedCode("RazorSingleFileGenerator", "1.0.0.0")]
-    internal class WebGridRenderer : HelperPage
+    internal class WebGridRenderer //: HelperPage
     {
 #line hidden
 #line hidden
@@ -93,7 +93,7 @@ namespace System.Web.Helpers
 
                 WriteTo(@__razor_helper_writer, GridInitScript(webGrid, httpContext));
 
-                var htmlAttributeDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+                var htmlAttributeDictionary = Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
                 if (webGrid.IsAjaxEnabled)
                 {
                     htmlAttributeDictionary["data-swhgajax"] = "true";
@@ -155,7 +155,7 @@ namespace System.Web.Helpers
 
                     WriteLiteralTo(@__razor_helper_writer, ">\r\n            <td colspan=\"");
 
-                    WriteTo(@__razor_helper_writer, columns.Count());
+                    WriteTo(@__razor_helper_writer, columns.Count().ToString());
 
                     WriteLiteralTo(@__razor_helper_writer, "\">");
 
@@ -471,9 +471,19 @@ namespace System.Web.Helpers
             return (mode & modeCheck) == modeCheck;
         }
 
-        protected static HttpApplication ApplicationInstance
+        private static void WriteLiteralTo(System.IO.TextWriter writer, string content)
         {
-            get { return ((Context.ApplicationInstance)); }
+            throw new NotImplementedException();
+        }
+
+        private static void WriteTo(System.IO.TextWriter writer, string content)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void WriteTo(System.IO.TextWriter writer, IHtmlContent content)
+        {
+            throw new NotImplementedException();
         }
     }
 }
