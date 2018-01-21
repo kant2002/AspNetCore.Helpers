@@ -5,7 +5,7 @@ using System.Dynamic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace System.Web.Helpers.Test
+namespace AndreyKurdiumov.AspNetCore.Helpers.Test
 {
     /// <summary>
     /// Dynamic object implementation over a dictionary that doesn't implement anything but the interface.

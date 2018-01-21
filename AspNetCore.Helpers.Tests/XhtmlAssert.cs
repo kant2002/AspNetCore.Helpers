@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -11,7 +12,7 @@ using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.TestCommon;
 
-namespace System.Web.Helpers.Test
+namespace AndreyKurdiumov.AspNetCore.Helpers.Test
 {
     // see: http://msdn.microsoft.com/en-us/library/hdf992b8(v=VS.100).aspx
     // see: http://blogs.msdn.com/xmlteam/archive/2008/08/14/introducing-the-xmlpreloadedresolver.aspx

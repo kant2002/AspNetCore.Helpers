@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace System.Web.Helpers
+namespace AndreyKurdiumov.AspNetCore.Helpers
 {
     /// <summary>
     /// Source wrapper for data provided by the user that is already sorted and paged. The user provides the WebGrid the rows to bind and additionally the total number of rows that 

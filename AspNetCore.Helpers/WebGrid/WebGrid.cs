@@ -16,8 +16,10 @@ using Microsoft.AspNetCore.Html;
 using System.Web.WebPages;
 using Microsoft.Internal.Web.Utils;
 using Microsoft.AspNetCore.Mvc.Razor;
+using System;
+using System.Web;
 
-namespace System.Web.Helpers
+namespace AndreyKurdiumov.AspNetCore.Helpers
 {
     public class WebGrid
     {

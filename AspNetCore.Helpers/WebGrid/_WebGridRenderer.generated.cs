@@ -21,8 +21,11 @@ using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Razor;
 using System.Threading.Tasks;
+using System;
+using System.Web;
+using System.Text.Encodings.Web;
 
-namespace System.Web.Helpers
+namespace AndreyKurdiumov.AspNetCore.Helpers
 {
     //[GeneratedCode("RazorSingleFileGenerator", "1.0.0.0")]
     internal class WebGridRenderer //: HelperPage
@@ -453,7 +456,7 @@ namespace System.Web.Helpers
                 var helper = result as HelperResult;
                 if (helper != null)
                 {
-                    helper.WriteTo(tw, Text.Encodings.Web.HtmlEncoder.Default);
+                    helper.WriteTo(tw, System.Text.Encodings.Web.HtmlEncoder.Default);
                     return Task.CompletedTask;
                 }
                 IHtmlContent htmlString = result as IHtmlContent;
@@ -510,7 +513,7 @@ namespace System.Web.Helpers
         {
             if (content != null)
             {
-                content.WriteTo(writer, Text.Encodings.Web.HtmlEncoder.Default);
+                content.WriteTo(writer, HtmlEncoder.Default);
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
@@ -9,7 +10,7 @@ using System.Reflection;
 using Microsoft.CSharp.RuntimeBinder;
 using Binder = Microsoft.CSharp.RuntimeBinder.Binder;
 
-namespace System.Web.Helpers
+namespace AndreyKurdiumov.AspNetCore.Helpers
 {
     /// <summary>
     /// Default data source that sorts results if a sort column is specified.

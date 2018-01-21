@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -7,6 +8,7 @@ using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Web.TestUtil;
 using System.Web.WebPages;
 using Microsoft.AspNetCore.Html;
@@ -15,7 +17,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.TestCommon;
 using Moq;
 
-namespace System.Web.Helpers.Test
+namespace AndreyKurdiumov.AspNetCore.Helpers.Test
 {
     public class WebGridTest
     {
@@ -88,7 +90,7 @@ namespace System.Web.Helpers.Test
             });
             Assert.Equal(7, grid.ColumnNames.Count());
             Assert.True(grid.ColumnNames.Contains("DateTime"));
-            Assert.True(grid.ColumnNames.Contains("DateTimeOffset"));
+            Assert.Contains("DateTimeOffset", grid.ColumnNames);
             Assert.True(grid.ColumnNames.Contains("Decimal"));
             Assert.True(grid.ColumnNames.Contains("Guid"));
             Assert.True(grid.ColumnNames.Contains("Int32"));
@@ -1211,7 +1213,7 @@ namespace System.Web.Helpers.Test
             });
             var content = grid.Rows[1].GetSelectLink();
             var stringWriter = new StringWriter();
-            content.WriteTo(stringWriter, Text.Encodings.Web.HtmlEncoder.Default);
+            content.WriteTo(stringWriter, HtmlEncoder.Default);
             string html = stringWriter.ToString();
             Assert.Equal("<a href=\"?page=1&amp;row=2&amp;sort=P1&amp;sortdir=DESC\">Select</a>", html.ToString());
         }
@@ -2317,7 +2319,7 @@ namespace System.Web.Helpers.Test
             var htmlString = "";
             using (var textWriter = new StringWriter())
             {
-                html.WriteTo(textWriter, Text.Encodings.Web.HtmlEncoder.Default);
+                html.WriteTo(textWriter, HtmlEncoder.Default);
                 htmlString = textWriter.ToString();
             }
 

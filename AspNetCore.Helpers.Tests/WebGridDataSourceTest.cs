@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.TestCommon;
 using Moq;
 
-namespace System.Web.Helpers.Test
+namespace AndreyKurdiumov.AspNetCore.Helpers.Test
 {
     public class WebGridDataSourceTest
     {

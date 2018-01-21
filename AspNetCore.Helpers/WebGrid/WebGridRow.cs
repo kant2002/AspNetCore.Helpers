@@ -11,8 +11,9 @@ using System.Reflection;
 using AndreyKurdiumov.AspNetCore.Helpers.Resources;
 using Microsoft.Internal.Web.Utils;
 using Microsoft.AspNetCore.Html;
+using System;
 
-namespace System.Web.Helpers
+namespace AndreyKurdiumov.AspNetCore.Helpers
 {
     [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Collection is not an appropriate suffix for this class")]
     public class WebGridRow : DynamicObject, IEnumerable<object>

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace System.Web.Helpers.Test
+namespace AndreyKurdiumov.AspNetCore.Helpers.Test
 {
     /// <summary>
     /// Dynamic object implementation over a regualar CLR object. Getmember accesses members through reflection.

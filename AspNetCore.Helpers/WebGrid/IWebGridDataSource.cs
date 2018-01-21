@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace System.Web.Helpers
+namespace AndreyKurdiumov.AspNetCore.Helpers
 {
     internal interface IWebGridDataSource
     {
