@@ -22,11 +22,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace System.Web.Helpers
 {
-    [GeneratedCode("RazorSingleFileGenerator", "1.0.0.0")]
+    //[GeneratedCode("RazorSingleFileGenerator", "1.0.0.0")]
     internal class WebGridRenderer //: HelperPage
     {
-#line hidden
-#line hidden
+//#line hidden
+//#line hidden
         public static HelperResult GridInitScript(WebGrid webGrid, HttpContext httpContext)
         {
             return new HelperResult(__razor_helper_writer =>
@@ -66,7 +66,7 @@ namespace System.Web.Helpers
             });
         }
 
-#line hidden
+//#line hidden
         public static HelperResult Table(WebGrid webGrid,
                                          HttpContext httpContext,
                                          string tableStyle,
@@ -230,7 +230,7 @@ namespace System.Web.Helpers
             });
         }
 
-#line hidden
+//#line hidden
         public static HelperResult Pager(
             WebGrid webGrid,
             HttpContext httpContext,
@@ -354,8 +354,12 @@ namespace System.Web.Helpers
 
         private static bool IsGridScriptRendered(HttpContext context)
         {
-            bool? value = (bool?)context.Items[_gridScriptRenderedKey];
-            return value.HasValue && value.Value;
+            if (context.Items.TryGetValue(_gridScriptRenderedKey, out var value))
+            {
+                return (bool)value;
+            }
+
+            return false;
         }
 
         private static void SetGridScriptRendered(HttpContext context, bool value)
@@ -473,17 +477,26 @@ namespace System.Web.Helpers
 
         private static void WriteLiteralTo(System.IO.TextWriter writer, string content)
         {
-            throw new NotImplementedException();
+            if (content != null)
+            {
+                writer.Write(content);
+            }
         }
 
         private static void WriteTo(System.IO.TextWriter writer, string content)
         {
-            throw new NotImplementedException();
+            if (content != null)
+            {
+                writer.Write(HttpUtility.HtmlEncode(content));
+            }
         }
 
         private static void WriteTo(System.IO.TextWriter writer, IHtmlContent content)
         {
-            throw new NotImplementedException();
+            if (content != null)
+            {
+                content.WriteTo(writer, Text.Encodings.Web.HtmlEncoder.Default);
+            }
         }
     }
 }

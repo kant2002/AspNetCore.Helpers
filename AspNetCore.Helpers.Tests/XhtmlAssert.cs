@@ -124,7 +124,7 @@ namespace System.Web.Helpers.Test
             public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
             {
                 Assembly assembly = typeof(XhtmlAssert).Assembly;
-                return assembly.GetManifestResourceStream("System.Web.Helpers.Test.TestFiles.xhtml11-flat.dtd");
+                return assembly.GetManifestResourceStream("AspNetCore.Helpers.Tests.TestFiles.xhtml11-flat.dtd");
             }
         }
     }

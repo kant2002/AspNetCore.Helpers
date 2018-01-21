@@ -39,7 +39,7 @@ namespace System.Web.Helpers.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("System.Web.Helpers.Resources.HelpersResources", typeof(HelpersResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AspNetCore.Helpers.Resources.HelpersResources", typeof(HelpersResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -1206,7 +1206,10 @@ namespace System.Web.Helpers.Test
                 new { P1 = 1, P2 = '2', P3 = "3" },
                 new { P1 = 4, P2 = '5', P3 = "6" }
             });
-            string html = grid.Rows[1].GetSelectLink().ToString();
+            var content = grid.Rows[1].GetSelectLink();
+            var stringWriter = new StringWriter();
+            content.WriteTo(stringWriter, Text.Encodings.Web.HtmlEncoder.Default);
+            string html = stringWriter.ToString();
             Assert.Equal("<a href=\"?page=1&amp;row=2&amp;sort=P1&amp;sortdir=DESC\">Select</a>", html.ToString());
         }
 
@@ -2088,7 +2091,7 @@ namespace System.Web.Helpers.Test
             // Arrange
             NameValueCollection collection = new NameValueCollection();
             collection["sort"] = "Salary";
-            collection["sortDir"] = "Desc";
+            collection["sortdir"] = "Desc";
             var context = GetContext(collection);
             IList<Employee> employees = new List<Employee>();
             employees.Add(new Employee { Name = "A", Salary = 5, Manager = new Employee { Name = "-" } });
