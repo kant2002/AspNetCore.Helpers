@@ -11,6 +11,7 @@ using System.Web.TestUtil;
 using System.Web.WebPages;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.TestCommon;
 using Moq;
 
@@ -23,7 +24,7 @@ namespace System.Web.Helpers.Test
         {
             var grid = new WebGrid(GetContext(), ajaxUpdateContainerId: "grid")
                 .Bind(new[] { new { First = "First", Second = "Second" } });
-            string html = grid.Table().ToString();
+            string html = grid.Table().ToHtmlString();
             Assert.True(html.Contains("<script"));
             html = grid.Table().ToString();
             Assert.False(html.Contains("<script"));
@@ -147,6 +148,7 @@ namespace System.Web.Helpers.Test
                     new { P1 = 4, P2 = '5', P3 = "6" }
                 });
             var html = grid.GetHtml();
+            var htmlString = html.ToHtmlString();
             UnitTestHelper.AssertEqualsIgnoreWhitespace(
                 "<table><thead><tr>" +
                 "<th scope=\"col\"><a href=\"?sort=P1&amp;sortdir=ASC\">P1</a></th>" +
@@ -157,7 +159,7 @@ namespace System.Web.Helpers.Test
                 "<td colspan=\"3\">1 <a href=\"?page=2\">2</a> <a href=\"?page=2\">&gt;</a> </td>" +
                 "</tr></tfoot>" +
                 "<tbody><tr><td>1</td><td>2</td><td>3</td></tr></tbody>" +
-                "</table>", html.ToString());
+                "</table>", htmlString);
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -172,6 +174,7 @@ namespace System.Web.Helpers.Test
                 });
             var caption = "WebGrid With Caption";
             var html = grid.GetHtml(caption: caption);
+            var htmlString = html.ToHtmlString();
             UnitTestHelper.AssertEqualsIgnoreWhitespace(
                 "<table>" +
                 "<caption>" + caption + "</caption>" +
@@ -184,7 +187,7 @@ namespace System.Web.Helpers.Test
                 "<td colspan=\"3\">1 <a href=\"?page=2\">2</a> <a href=\"?page=2\">&gt;</a> </td>" +
                 "</tr></tfoot>" +
                 "<tbody><tr><td>1</td><td>2</td><td>3</td></tr></tbody>" +
-                "</table>", html.ToString());
+                "</table>", htmlString);
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -211,7 +214,7 @@ namespace System.Web.Helpers.Test
                 "<td colspan=\"3\">1 <a href=\"?page=2\">2</a> <a href=\"?page=2\">&gt;</a> </td>" +
                 "</tr></tfoot>" +
                 "<tbody><tr><td>1</td><td>2</td><td>3</td></tr></tbody>" +
-                "</table>", html.ToString());
+                "</table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -231,7 +234,7 @@ namespace System.Web.Helpers.Test
                 "<th scope=\"col\"><a href=\"?sort=P3&amp;sortdir=ASC\">P3</a></th>" +
                 "</tr></thead>" +
                 "<tbody><tr><td>1</td><td>2</td><td>3</td></tr></tbody>" +
-                "</table>", html.ToString());
+                "</table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -255,7 +258,7 @@ namespace System.Web.Helpers.Test
                 "<tr><td>1</td><td>2</td><td>3</td></tr>" +
                 "<tr><td>4</td><td>5</td><td>6</td></tr>" +
                 "</tbody>" +
-                "</table>", html.ToString());
+                "</table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -583,7 +586,7 @@ namespace System.Web.Helpers.Test
                 "<a href=\"?page=3\">3</a> " +
                 "<a href=\"?page=4\">4</a> " +
                 "<a href=\"?page=2\">&gt;</a> ",
-                html.ToString());
+                html.ToHtmlString());
             XhtmlAssert.Validate1_1(html, wrapper: "div");
         }
 
@@ -599,7 +602,7 @@ namespace System.Web.Helpers.Test
                 "<a href=\"?page=4\">4</a> " +
                 "<a href=\"?page=2\">&gt;</a> " +
                 "<a href=\"?page=4\">&gt;&gt;</a>",
-                html.ToString());
+                html.ToHtmlString());
             XhtmlAssert.Validate1_1(html, wrapper: "div");
         }
 
@@ -621,7 +624,7 @@ namespace System.Web.Helpers.Test
                 "3 " +
                 "<a href=\"?page=4\">4</a> " +
                 "<a href=\"?page=4\">&gt;</a> ",
-                html.ToString());
+                html.ToHtmlString());
             XhtmlAssert.Validate1_1(html, wrapper: "div");
         }
 
@@ -642,7 +645,7 @@ namespace System.Web.Helpers.Test
                 "3 " +
                 "<a href=\"?page=4\">4</a> " +
                 "<a href=\"?page=4\">&gt;</a> ",
-                html.ToString());
+                html.ToHtmlString());
             XhtmlAssert.Validate1_1(html, wrapper: "div");
         }
 
@@ -661,7 +664,7 @@ namespace System.Web.Helpers.Test
                 "2 " +
                 "<a href=\"?page=3\">3</a> " +
                 "<a href=\"?page=3\">&gt;</a> ",
-                html.ToString());
+                html.ToHtmlString());
             XhtmlAssert.Validate1_1(html, wrapper: "div");
         }
 
@@ -678,7 +681,7 @@ namespace System.Web.Helpers.Test
             Assert.Equal(
                 "<a href=\"?page=3\">&lt;</a> " +
                 "4 ",
-                html.ToString());
+                html.ToHtmlString());
             XhtmlAssert.Validate1_1(html, wrapper: "div");
         }
 
@@ -694,7 +697,7 @@ namespace System.Web.Helpers.Test
             var html = grid.Pager(WebGridPagerModes.FirstLast | WebGridPagerModes.Numeric, numericLinksCount: 0);
             Assert.Equal(
                 "<a href=\"?page=1\">&lt;&lt;</a> ",
-                html.ToString());
+                html.ToHtmlString());
             XhtmlAssert.Validate1_1(html, wrapper: "div");
         }
 
@@ -713,7 +716,7 @@ namespace System.Web.Helpers.Test
                 "<a href=\"?page=2\">2</a> " +
                 "3 " +
                 "<a href=\"?page=4\">4</a> ",
-                html.ToString());
+                html.ToHtmlString());
             XhtmlAssert.Validate1_1(html, wrapper: "div");
         }
 
@@ -725,7 +728,7 @@ namespace System.Web.Helpers.Test
                 new { }, new { }, new { }, new { }
             });
             var html = grid.Pager(WebGridPagerModes.Numeric, numericLinksCount: 0);
-            Assert.Equal("", html.ToString());
+            Assert.Equal("", html.ToHtmlString());
         }
 
         [Fact]
@@ -744,7 +747,7 @@ namespace System.Web.Helpers.Test
                 "<a href=\"?page=2\">previous</a> " +
                 "<a href=\"?page=4\">next</a> " +
                 "<a href=\"?page=5\">last</a>",
-                html.ToString());
+                html.ToHtmlString());
             XhtmlAssert.Validate1_1(html, wrapper: "div");
         }
 
@@ -781,7 +784,7 @@ namespace System.Web.Helpers.Test
                     new { P1 = 1, P2 = '2', P3 = "3" },
                     new { P1 = 4, P2 = '5', P3 = "6" }
                 });
-            string html = grid.Pager().ToString();
+            string html = grid.Pager().ToHtmlString();
             Assert.True(html.Contains("<script"));
         }
 
@@ -794,7 +797,7 @@ namespace System.Web.Helpers.Test
                     new { P1 = 1, P2 = '2', P3 = "3" },
                     new { P1 = 4, P2 = '5', P3 = "6" }
                 });
-            string html = grid.Pager().ToString();
+            string html = grid.Pager().ToHtmlString();
             Assert.True(html.Contains("<script"));
             Assert.True(html.Contains("data-swhgcallback=\"myCallback\""));
         }
@@ -1718,14 +1721,14 @@ namespace System.Web.Helpers.Test
                                   {
                                       grid.Column("P1", format: item => { return "<span>P1: " + item.P1 + "</span>"; }),
                                       grid.Column("P2", format: item => { return new HtmlString("<span>P2: " + item.P2 + "</span>"); }),
-                                      grid.Column("P3", format: item => { return new HelperResult(tw => { tw.Write("<span>P3: " + item.P3 + "</span>"); }); })
+                                      grid.Column("P3", format: item => { return new HelperResult(tw => { return tw.WriteAsync("<span>P3: " + item.P3 + "</span>"); }); })
                                   });
             UnitTestHelper.AssertEqualsIgnoreWhitespace(
                 "<table><tbody><tr>" +
                 "<td>&lt;span&gt;P1: 1&lt;/span&gt;</td>" +
                 "<td><span>P2: 2</span></td>" +
                 "<td><span>P3: 3</span></td>" +
-                "</tr></tbody></table>", html.ToString());
+                "</tr></tbody></table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -1742,7 +1745,7 @@ namespace System.Web.Helpers.Test
                 "<tr><td></td><td></td></tr>" +
                 "<tr><td>N/A</td><td>N/A</td></tr>" +
                 "<tr><td>N/A</td><td>N/A</td></tr>" +
-                "</tbody></table>", html.ToString());
+                "</tbody></table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -1759,7 +1762,7 @@ namespace System.Web.Helpers.Test
                 "<tr><td></td><td></td></tr>" +
                 "<tr><td></td><td></td></tr>" +
                 "<tr><td></td><td></td></tr>" +
-                "</tbody></table>", html.ToString());
+                "</tbody></table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -1776,7 +1779,7 @@ namespace System.Web.Helpers.Test
                 "<tr><td></td><td></td></tr>" +
                 "<tr><td>&nbsp;</td><td>&nbsp;</td></tr>" +
                 "<tr><td>&nbsp;</td><td>&nbsp;</td></tr>" +
-                "</tbody></table>", html.ToString());
+                "</tbody></table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -1795,7 +1798,7 @@ namespace System.Web.Helpers.Test
                 "</tr></thead>" +
                 "<tbody>" +
                 "<tr><td>1</td><td>3</td></tr>" +
-                "</tbody></table>", html.ToString());
+                "</tbody></table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -1816,7 +1819,7 @@ namespace System.Web.Helpers.Test
                 "<tr><td>Joe</td><td>Smith</td></tr>" +
                 "<tr><td>&nbsp;</td><td>&nbsp;</td></tr>" +
                 "<tr><td>&nbsp;</td><td>&nbsp;</td></tr>" +
-                "</tbody></table>", html.ToString());
+                "</tbody></table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -1835,7 +1838,7 @@ namespace System.Web.Helpers.Test
                 "</tr></thead>" +
                 "<tbody>" +
                 "<tr><td>Joe</td><td>Smith</td></tr>" +
-                "</tbody></table>", html.ToString());
+                "</tbody></table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -1854,7 +1857,7 @@ namespace System.Web.Helpers.Test
                 "</tr></thead>" +
                 "<tbody>" +
                 "<tr><td>Joe</td><td>Smith</td></tr>" +
-                "</tbody></table>", html.ToString());
+                "</tbody></table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -1873,7 +1876,7 @@ namespace System.Web.Helpers.Test
                 "</tr></thead>" +
                 "<tbody>" +
                 "<tr><td>Joe</td><td>Smith</td></tr>" +
-                "</tbody></table>", html.ToString());
+                "</tbody></table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -1892,7 +1895,7 @@ namespace System.Web.Helpers.Test
                 "</tr></thead>" +
                 "<tbody>" +
                 "<tr><td>Joe</td><td>Smith</td></tr>" +
-                "</tbody></table>", html.ToString());
+                "</tbody></table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -1911,7 +1914,7 @@ namespace System.Web.Helpers.Test
                 "</tr></thead>" +
                 "<tbody>" +
                 "<tr><td>Joe</td><td>Smith</td></tr>" +
-                "</tbody></table>", html.ToString());
+                "</tbody></table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
         
@@ -1945,7 +1948,7 @@ namespace System.Web.Helpers.Test
                 "<tr class=\"arow\"><td class=\"c1\">Bob</td><td class=\"c2\">Johnson</td></tr>" +
                 "<tr class=\"row\"><td class=\"c1\">&nbsp;</td><td class=\"c2\">&nbsp;</td></tr>" +
                 "<tr class=\"arow\"><td class=\"c1\">&nbsp;</td><td class=\"c2\">&nbsp;</td></tr>" +
-                "</tbody></table>", html.ToString());
+                "</tbody></table>", html.ToHtmlString());
             XhtmlAssert.Validate1_1(html);
         }
 
@@ -1956,7 +1959,7 @@ namespace System.Web.Helpers.Test
             {
                 new { First = "First", Second = "Second" }
             });
-            string html = grid.Table().ToString();
+            string html = grid.Table().ToHtmlString();
             Assert.True(html.Contains("<script"));
             Assert.True(html.Contains("swhgajax=\"true\""));
         }
@@ -1968,7 +1971,7 @@ namespace System.Web.Helpers.Test
             {
                 new { First = "First", Second = "Second" }
             });
-            string html = grid.Table().ToString();
+            string html = grid.Table().ToHtmlString();
             Assert.True(html.Contains("<script"));
             Assert.True(html.Contains("myCallback"));
         }
@@ -1980,7 +1983,7 @@ namespace System.Web.Helpers.Test
             {
                 new { First = "First", Second = "Second" }
             });
-            string html = grid.Table().ToString();
+            string html = grid.Table().ToHtmlString();
             Assert.True(html.Contains(@"&#39;grid&#39;"));
             Assert.True(html.Contains(@"&#39;myCallback&#39;"));
         }
@@ -1995,9 +1998,9 @@ namespace System.Web.Helpers.Test
             // Act and Assert
             Assert.Throws<InvalidOperationException>(() => { var rows = grid.Rows; }, errorMessage);
             Assert.Throws<InvalidOperationException>(() => { int count = grid.TotalRowCount; }, errorMessage);
-            Assert.Throws<InvalidOperationException>(() => grid.GetHtml().ToString(), errorMessage);
-            Assert.Throws<InvalidOperationException>(() => grid.Pager().ToString(), errorMessage);
-            Assert.Throws<InvalidOperationException>(() => grid.Table().ToString(), errorMessage);
+            Assert.Throws<InvalidOperationException>(() => grid.GetHtml().ToHtmlString(), errorMessage);
+            Assert.Throws<InvalidOperationException>(() => grid.Pager().ToHtmlString(), errorMessage);
+            Assert.Throws<InvalidOperationException>(() => grid.Table().ToHtmlString(), errorMessage);
             Assert.Throws<InvalidOperationException>(() =>
             {
                 grid.SelectedIndex = 1;
@@ -2159,7 +2162,7 @@ namespace System.Web.Helpers.Test
                 + "<tr><td>A</td><td>-</td></tr>"
                 + "<tr><td>D</td><td>C</td></tr>"
                 + "<tr><td>C</td><td>A</td></tr>"
-                + "</tbody></table>", html.ToString());
+                + "</tbody></table>", html.ToHtmlString());
         }
 
         [Fact]
@@ -2189,7 +2192,7 @@ namespace System.Web.Helpers.Test
                 + "<tr><td>A</td><td>-</td></tr>"
                 + "<tr><td>D</td><td>C</td></tr>"
                 + "<tr><td>C</td><td>A</td></tr>"
-                + "</tbody></table>", html.ToString());
+                + "</tbody></table>", html.ToHtmlString());
         }
 
         [Fact]
@@ -2230,7 +2233,7 @@ namespace System.Web.Helpers.Test
                 + "<tr><td>B</td><td></td></tr>"
                 + "<tr><td>C</td><td>A</td></tr>"
                 + "<tr><td>A</td><td>C</td></tr>"
-                + "</tbody></table>", html.ToString());
+                + "</tbody></table>", html.ToHtmlString());
         }
 
         private static IEnumerable<Person> Iterator()

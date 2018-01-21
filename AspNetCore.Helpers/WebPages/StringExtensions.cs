@@ -3,6 +3,7 @@
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.IO;
 
 namespace System.Web.WebPages
 {
@@ -158,6 +159,15 @@ namespace System.Web.WebPages
                 }
             }
             return false;
+        }
+
+        public static string ToHtmlString(this Microsoft.AspNetCore.Html.IHtmlContent helper)
+        {
+            using (var stringWriter = new StringWriter())
+            {
+                helper.WriteTo(stringWriter, Text.Encodings.Web.HtmlEncoder.Default);
+                return stringWriter.ToString();
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Html;
 using System.Web.WebPages;
 using Microsoft.Internal.Web.Utils;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace System.Web.Helpers
 {

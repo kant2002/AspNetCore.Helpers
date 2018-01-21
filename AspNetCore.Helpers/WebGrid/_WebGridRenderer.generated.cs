@@ -19,6 +19,8 @@ using System.Web.WebPages;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Threading.Tasks;
 
 namespace System.Web.Helpers
 {
@@ -33,7 +35,7 @@ namespace System.Web.Helpers
             {
                 if (!webGrid.IsAjaxEnabled)
                 {
-                    return;
+                    return Task.CompletedTask;
                 }
                 if (!IsGridScriptRendered(httpContext))
                 {
@@ -63,6 +65,7 @@ namespace System.Web.Helpers
                                                            "uctor.apply(null, argNames);\r\n            }\r\n        })(jQuery);\r\n        </scri" +
                                                            "pt>\r\n");
                 }
+                return Task.CompletedTask;
             });
         }
 
@@ -180,7 +183,6 @@ namespace System.Web.Helpers
 
                     foreach (var column in columns)
                     {
-                        var value = (column.Format == null) ? HttpUtility.HtmlEncode(row[column.ColumnName]) : Format(column.Format, row).ToString();
 
                         WriteLiteralTo(@__razor_helper_writer, "            <td");
 
@@ -188,7 +190,17 @@ namespace System.Web.Helpers
 
                         WriteLiteralTo(@__razor_helper_writer, ">");
 
-                        WriteTo(@__razor_helper_writer, Raw(value));
+                        if (column.Format == null)
+                        {
+                            var value = HttpUtility.HtmlEncode(row[column.ColumnName]);
+                            WriteTo(@__razor_helper_writer, Raw(value));
+                        }
+                        else
+                        {
+                            var value = Format(column.Format, row);
+                            WriteTo(@__razor_helper_writer, value);
+                        }
+                            
 
                         WriteLiteralTo(@__razor_helper_writer, "</td>\r\n");
                     }
@@ -227,6 +239,7 @@ namespace System.Web.Helpers
                 }
 
                 WriteLiteralTo(@__razor_helper_writer, "    </tbody>\r\n    </table>\r\n");
+                return Task.CompletedTask;
             });
         }
 
@@ -347,6 +360,7 @@ namespace System.Web.Helpers
 
                     WriteLiteralTo(@__razor_helper_writer, "</span>\r\n");
                 }
+                return Task.CompletedTask;
             });
         }
 
@@ -439,19 +453,20 @@ namespace System.Web.Helpers
                 var helper = result as HelperResult;
                 if (helper != null)
                 {
-                    helper.WriteTo(tw);
-                    return;
+                    helper.WriteTo(tw, Text.Encodings.Web.HtmlEncoder.Default);
+                    return Task.CompletedTask;
                 }
                 IHtmlContent htmlString = result as IHtmlContent;
                 if (htmlString != null)
                 {
                     tw.Write(htmlString);
-                    return;
+                    return Task.CompletedTask;
                 }
                 if (result != null)
                 {
                     tw.Write(HttpUtility.HtmlEncode(result));
                 }
+                return Task.CompletedTask;
             });
         }
 

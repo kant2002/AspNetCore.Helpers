@@ -8,6 +8,7 @@ using System.Web.WebPages;
 using System.Xml;
 using System.Xml.Resolvers;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.TestCommon;
 
 namespace System.Web.Helpers.Test
@@ -53,7 +54,7 @@ namespace System.Web.Helpers.Test
         private static string GetHtml(object result)
         {
             Assert.True((result is IHtmlContent) || (result is HelperResult), "Helpers should return IHTMLString or HelperResult");
-            return result.ToString();
+            return (result as IHtmlContent).ToHtmlString();
         }
 
         private static string GetRoot(string html)
