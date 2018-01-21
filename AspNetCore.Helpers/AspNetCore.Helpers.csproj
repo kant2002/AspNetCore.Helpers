@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>AndreyKurdiumov.AspNetCore.Helpers</RootNamespace>
     <AssemblyName>AndreyKurdiumov.AspNetCore.Helpers</AssemblyName>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Authors>Andrey Kurdiumov</Authors>
     <Company />
     <Product />
