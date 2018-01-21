@@ -8,7 +8,7 @@ using System.Dynamic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Web.Helpers.Resources;
+using AndreyKurdiumov.AspNetCore.Helpers.Resources;
 using Microsoft.Internal.Web.Utils;
 using Microsoft.AspNetCore.Html;
 

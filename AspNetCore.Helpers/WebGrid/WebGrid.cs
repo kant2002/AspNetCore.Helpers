@@ -10,7 +10,7 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using System.Web.Helpers.Resources;
+using AndreyKurdiumov.AspNetCore.Helpers.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Html;
 using System.Web.WebPages;
