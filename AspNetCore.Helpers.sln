@@ -4,9 +4,14 @@ VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Helpers", "AspNetCore.Helpers\AspNetCore.Helpers.csproj", "{1DBCE1E6-3B16-42D0-A43B-89FD65952FED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.Helpers.Tests", "AspNetCore.Helpers.Tests\AspNetCore.Helpers.Tests.csproj", "{910EB451-AB84-4C2D-9CAB-ADD09AB8C3CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Helpers.Tests", "AspNetCore.Helpers.Tests\AspNetCore.Helpers.Tests.csproj", "{910EB451-AB84-4C2D-9CAB-ADD09AB8C3CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.TestCommon", "Microsoft.TestCommon\Microsoft.TestCommon.csproj", "{0F0D9012-5996-4A11-B7CD-400F26C88F46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.TestCommon", "Microsoft.TestCommon\Microsoft.TestCommon.csproj", "{0F0D9012-5996-4A11-B7CD-400F26C88F46}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BC516407-87A0-4BCE-AF62-FE6EF34B0E52}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
