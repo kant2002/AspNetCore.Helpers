@@ -15,5 +15,7 @@ namespace AndreyKurdiumov.AspNetCore.Helpers
         public string Header { get; set; }
 
         public string Style { get; set; }
+
+        public string HeaderStyle { get; set; }
     }
 }

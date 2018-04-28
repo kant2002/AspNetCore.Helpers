@@ -134,7 +134,16 @@ namespace AndreyKurdiumov.AspNetCore.Helpers
 
                     foreach (var column in columns)
                     {
-                        WriteLiteralTo(@__razor_helper_writer, "            <th scope=\"col\">\r\n");
+                        if (string.IsNullOrWhiteSpace(column.Style))
+                        {
+                            WriteLiteralTo(@__razor_helper_writer, "            <th scope=\"col\">\r\n");
+                        }
+                        else
+                        {
+                            WriteLiteralTo(@__razor_helper_writer, "            <th scope=\"col\" class=\"");
+                            WriteTo(@__razor_helper_writer, CssClass(column.Style));
+                            WriteLiteralTo(@__razor_helper_writer, "\">\r\n");
+                        }
 
                         if (ShowSortableColumnHeader(webGrid, column))
                         {

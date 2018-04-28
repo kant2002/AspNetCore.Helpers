@@ -94,7 +94,11 @@
     <thead>
         <tr@CssClass(headerStyle)>
         @foreach (var column in columns) {
-            <th scope="col">
+            if (string.IsNullOrWhiteSpace(column.HeaderStyle)) { 
+                <th scope="col">
+            } else {
+                <th scope="col" class="@CssClass(column.HeaderStyle)">
+            }
             @if (ShowSortableColumnHeader(webGrid, column)) {
                 var text = column.Header.IsEmpty() ? column.ColumnName : column.Header;
                 @GridLink(webGrid, webGrid.GetSortUrl(column.ColumnName), text)
