@@ -509,7 +509,8 @@ namespace AndreyKurdiumov.AspNetCore.Helpers
         // todo: add templating from file support
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Non-static for syntax, and in case we want to check column existence.")]
         public WebGridColumn Column(string columnName = null, string header = null, Func<dynamic, object> format = null, string style = null,
-                                    bool canSort = true)
+                                    bool canSort = true,
+                                    string headerStyle = null)
         {
             if (String.IsNullOrEmpty(columnName))
             {
@@ -519,7 +520,7 @@ namespace AndreyKurdiumov.AspNetCore.Helpers
                 }
             }
 
-            return new WebGridColumn { ColumnName = columnName, Header = header, Format = format, Style = style, CanSort = canSort };
+            return new WebGridColumn { ColumnName = columnName, Header = header, Format = format, Style = style, CanSort = canSort, HeaderStyle = headerStyle };
         }
 
         // Should we keep this no-op API for improved WebGrid syntax? Alternatives are:
