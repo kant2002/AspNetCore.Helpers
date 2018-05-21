@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>AndreyKurdiumov.AspNetCore.Helpers</RootNamespace>
     <AssemblyName>AndreyKurdiumov.AspNetCore.Helpers</AssemblyName>
-    <Version>0.3.1</Version>
+    <Version>0.3.2</Version>
     <Authors>Andrey Kurdiumov</Authors>
     <Company />
     <Product />
