@@ -471,7 +471,7 @@ namespace AndreyKurdiumov.AspNetCore.Helpers
                 IHtmlContent htmlString = result as IHtmlContent;
                 if (htmlString != null)
                 {
-                    tw.Write(htmlString);
+                    tw.Write(htmlString.ToHtmlString());
                     return Task.CompletedTask;
                 }
                 if (result != null)
