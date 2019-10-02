@@ -826,7 +826,10 @@ namespace AndreyKurdiumov.AspNetCore.Helpers
             NameValueCollection temp = new NameValueCollection();
             foreach (var pair in QueryString)
             {
-                temp.Add(pair.Key, pair.Value.First());
+                foreach (var item in pair.Value)
+                {
+                    temp.Add(pair.Key, item);
+                }
             }
 
             // update current query string in case values were set programmatically
@@ -882,9 +885,19 @@ namespace AndreyKurdiumov.AspNetCore.Helpers
                 {
                     sb.Append("&");
                 }
-                sb.Append(HttpUtility.UrlEncode(queryString.Keys[i]));
-                sb.Append("=");
-                sb.Append(HttpUtility.UrlEncode(queryString[i]));
+
+                var queryValues = queryString.GetValues(i);
+                for (int j = 0; j < queryValues.Count(); j++)
+                {
+                    if (j > 0)
+                    {
+                        sb.Append("&");
+                    }
+
+                    sb.Append(HttpUtility.UrlEncode(queryString.Keys[i]));
+                    sb.Append("=");
+                    sb.Append(HttpUtility.UrlEncode(queryValues[j]));
+                }
             }
             return sb.ToString();
         }

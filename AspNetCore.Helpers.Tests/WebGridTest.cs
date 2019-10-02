@@ -283,6 +283,22 @@ namespace AndreyKurdiumov.AspNetCore.Helpers.Test
         }
 
         [Fact]
+        public void PageHrefKeepArrayInQuery()
+        {
+            NameValueCollection queryString = new NameValueCollection();
+            queryString.Add("queryParam", "1");
+            queryString.Add("queryParam", "2");
+            var grid = new WebGrid(GetContext(queryString), rowsPerPage: 1)
+                .Bind(new[]
+                {
+                    new { P1 = 1, P2 = '2', P3 = "3" },
+                    new { P1 = 4, P2 = '5', P3 = "6" }
+                });
+
+            Assert.Equal("?queryParam=1&queryParam=2&row=1", grid.Rows.FirstOrDefault().GetSelectUrl());
+        }
+
+        [Fact]
         public void PageIndexCanBeResetToSameValue()
         {
             NameValueCollection queryString = new NameValueCollection();
@@ -2342,7 +2358,7 @@ namespace AndreyKurdiumov.AspNetCore.Helpers.Test
             {
                 foreach (var key in queryString.AllKeys)
                 {
-                    q[key] = new Microsoft.Extensions.Primitives.StringValues(queryString[key]);
+                    q[key] = new Microsoft.Extensions.Primitives.StringValues(queryString.GetValues(key));
                 }
             }
 
