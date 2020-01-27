@@ -62,7 +62,7 @@ namespace AndreyKurdiumov.AspNetCore.Helpers
                 // Force compile the underlying IQueryable
                 rowData = rowData.ToList();
             }
-            catch (ArgumentException)
+            catch (InvalidOperationException)
             {
                 // The OrderBy method uses a generic comparer which fails when the collection contains 2 or more 
                 // items that cannot be compared (e.g. DBNulls, mixed types such as strings and ints et al) with the exception
