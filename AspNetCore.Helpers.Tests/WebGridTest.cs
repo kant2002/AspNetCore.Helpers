@@ -2364,7 +2364,7 @@ namespace AndreyKurdiumov.AspNetCore.Helpers.Test
 
             Mock<HttpRequest> requestMock = new Mock<HttpRequest>();
             requestMock.Setup(request => request.Query)
-                .Returns(new Microsoft.AspNetCore.Http.Internal.QueryCollection(q));
+                .Returns(new Microsoft.AspNetCore.Http.QueryCollection(q));
 
             Mock<HttpContext> contextMock = new Mock<HttpContext>();
             contextMock.Setup(context => context.Request).Returns(requestMock.Object);
