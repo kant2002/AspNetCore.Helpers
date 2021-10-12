@@ -268,7 +268,7 @@ namespace Microsoft.TestCommon
         {
             if (exceptionMessage != null)
             {
-                exceptionMessage = exceptionMessage + "\r\nParameter name: " + paramName;
+                exceptionMessage = exceptionMessage + " (Parameter '" + paramName + "')";
                 if (actualValue != null)
                 {
                     exceptionMessage += String.Format(CultureReplacer.DefaultCulture, "\r\nActual value was {0}.", actualValue);
